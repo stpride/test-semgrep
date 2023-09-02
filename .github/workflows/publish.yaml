@@ -36,7 +36,11 @@ jobs:
             -v .:/src \
             returntocorp/semgrep \
             semgrep scan --test --error --time --json --quiet --config /src/rules /src/tests > ouput.json
+          ls -l
 
+      - shell: bash
+        run: ls -l
+        
       - name: Validate Test Suite
         shell: python
         run: |
