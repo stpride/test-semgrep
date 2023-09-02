@@ -1,5 +1,4 @@
 rules:
-x
   - id: fq.terraform.module.sources
     patterns:
       - pattern: module "..." {... source="..." ...}
