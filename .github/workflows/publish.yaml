@@ -22,5 +22,5 @@ jobs:
           docker run \
             -v .:/src \
             returntocorp/semgrep \
-            semgrep scan --validate --error --time --quiet --json --config /src/rules
+            semgrep scan --validate --error --config /src/rules
             
