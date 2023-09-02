@@ -1,0 +1,17 @@
+rules:
+  - id: fq.terraform.detect_aws_sns_topic
+    patterns:
+      - pattern: |
+          resource "aws_sns_topic" "..." {
+            ...
+          }
+    languages:
+      - hcl
+    severity: WARNING
+    message: |
+      Detected provisioning of aws_sns_topic resource. Please use our SNS module instead: [terraform-module-sns](https://github.com/FloQastInc/terraform-module-sns)
+    metadata:
+      category: security
+      technology:
+        - terraform
+        - aws

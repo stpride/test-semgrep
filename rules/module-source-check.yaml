@@ -1,0 +1,15 @@
+rules:
+  - id: fq.terraform.module.sources
+    patterns:
+      - pattern: module "..." {... source="..." ...}
+      - pattern-not-regex: source\s+\=\s+\"git@github.com:FloQastInc/terraform-module\S+\"
+      - pattern-not-regex: source\s+\=\s+\"\.+/\S+\"
+    languages:
+      - hcl
+    severity: WARNING
+    message: Modules need to originate from the FloQastInc organization
+    metadata:
+      category: security
+      technology:
+        - terraform
+        - aws

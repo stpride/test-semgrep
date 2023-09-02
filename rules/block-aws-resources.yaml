@@ -1,0 +1,20 @@
+rules:
+  - id: fq.terraform.block_aws_resources
+    patterns:
+      - pattern: |
+          resource "..." "..." {
+            ...
+          }
+      - pattern-not: |
+          resource "aws_route53_record" "..." {
+            ...
+          }
+    languages:
+     - hcl    
+    severity: ERROR
+    message: Block all usage of resources directly in the code repo
+    metadata:
+      category: security
+      technology:
+        - terraform
+        - aws

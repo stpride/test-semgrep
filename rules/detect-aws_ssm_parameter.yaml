@@ -1,0 +1,17 @@
+rules:
+  - id: fq.terraform.detect_aws_ssm_parameter
+    patterns:
+      - pattern: |
+          resource "aws_ssm_parameter" "..." {
+            ...
+          }
+    languages:
+      - hcl
+    severity: WARNING
+    message: |
+      Detected provisioning of aws_ssm_parameter resource. Please use our SSM module instead: [terraform-module-ssm](https://github.com/FloQastInc/terraform-module-ssm)
+    metadata:
+      category: security
+      technology:
+        - terraform
+        - aws

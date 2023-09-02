@@ -1,0 +1,18 @@
+rules:
+  - id: fq.terraform.module.lambda.super_access
+    patterns:
+    - pattern-inside: |
+        module $ANYTHING {
+          ...
+          lambda_environment = {..., ALLOW_SUPER_ACCESS=true, ...}
+          ...
+        }
+    languages:
+      - hcl
+    severity: WARNING
+    message: Extra security check for ALLOW_SUPER_ACESS
+    metadata:
+      category: security
+      technology:
+        - terraform
+        - aws

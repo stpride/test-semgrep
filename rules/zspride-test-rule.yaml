@@ -1,0 +1,14 @@
+rules:
+  - id: fq.zspride_check_stuff
+    patterns:
+      - pattern-regex: resource\s+("?)aws_ssm_parameter("?)\s+("?)...("?)\s+{
+    languages:
+      - hcl
+    severity: WARNING
+    message: |
+      This is a test rule - please ignore
+    metadata:
+      category: security
+      technology:
+        - terraform
+        - aws
