@@ -36,16 +36,18 @@ jobs:
             -v .:/src \
             returntocorp/semgrep \
             semgrep scan --test --error --time --json --quiet --config /src/rules /src/tests > output.json
-          ls -l
-
-      - shell: bash
-        run: ls -l
         
       - name: Validate Test Suite
         shell: python
         run: |
           import json
+          import sys
           data = {}
           with open("./output.json","r") as fp:
             data = json.load(fp)
+          if len(data["config_missing_tests"]) > 0:
+            print("ERROR: The following rules are missing assocaited tests:")
+            for test in data["config_missing_tests"]:
+              print(test)
+            sys.exit(1)
             
