@@ -15,12 +15,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-          
+
+      # This will output the results of the validation and exit with a
+      # 0 for success and non-0 on error
+      
       - name: Validate Rules
         shell: bash
         run: |
           docker run \
             -v .:/src \
-            returntocorp/semgrep \
+            returntocorp/semgrep:latest \
             semgrep scan --validate --error --config /src/rules
-            
+
+      # This will run the test suite and output
+      
+      - name: Run Test Suite
+        shell: bash
+        run: |
+          docker run \
+            -v .:/src \
+            returntocorp/semgrep \
+            semgrep scan --test --error --time --json --quiet --config /src/rules /src/tests > ouput.json
