@@ -1,0 +1,26 @@
+name: Semgrep Publish
+
+on: [workflow_dispatch]
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  actions: read
+  deployments: write
+
+jobs:
+  Test-Rules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+          
+      - name: Validate Rules
+        shell: bash
+        run: |
+          docker run \
+            -v .:/src \
+            returntocorp/semgrep \
+            semgrep scan --validate --error --time --quiet --json --config /src/rules
+            
