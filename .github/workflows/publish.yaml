@@ -36,3 +36,12 @@ jobs:
             -v .:/src \
             returntocorp/semgrep \
             semgrep scan --test --error --time --json --quiet --config /src/rules /src/tests > ouput.json
+
+      - name: Validate Test Suite
+        shell: python
+        run: |
+          import json
+          data = {}
+          with open("./output.json","r") as fp:
+            data = json.load(fp)
+            
