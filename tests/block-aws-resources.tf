@@ -12,12 +12,6 @@ resource "aws_elb" "main" {
 }
 
 # ok: fq.terraform.block_aws_resources
-resource "aws_test" "main" {
-  name               = "foobar-terraform-elb"
-  availability_zones = ["us-east-1c"]
-}
-
-# ok: fq.terraform.block_aws_resources
 module "lambda-platform" {
   source = "git@github.com:FloQastInc/terraform-module-lambda-platform.git?ref=v2.5.0"
   # Common Config
