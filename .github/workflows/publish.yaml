@@ -52,7 +52,8 @@ jobs:
             sys.exit(1)
           if len(data["results"]) == 0:
             print("Error: No test results found!")
-            sys.exit(1);
+            sys.exit(1)
+          passed = True
           for result in data["results"].keys():
             for rule in data["results"][result]["checks"].keys():
               if data["results"][result]["checks"][rule]["passed"] == False:
@@ -63,4 +64,7 @@ jobs:
                   for n in reported:
                     if not n in expected:
                       print("  -> "+test+" (L:"+str(n)+")")
+                      passed = False
+          if passed == False:
+            sys.exit(1)
             
