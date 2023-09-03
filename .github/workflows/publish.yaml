@@ -35,7 +35,7 @@ jobs:
           docker run \
             -v .:/src \
             returntocorp/semgrep \
-            semgrep scan --test --error --time --json --quiet --config /src/rules /src/tests > output.json
+            semgrep scan --test --error --time --json --quiet --config /src/rules /src/tests > output.json || true
         
       - name: Validate Test Suite
         shell: python
