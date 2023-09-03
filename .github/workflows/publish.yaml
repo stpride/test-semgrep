@@ -48,7 +48,7 @@ jobs:
           if len(data["config_missing_tests"]) > 0:
             print("ERROR: The following rule files are missing tests:")
             for test in data["config_missing_tests"]:
-              print("  "+test)
+              print("  -> "+test)
             sys.exit(1)
           if len(data["results"]) == 0:
             print("Error: No test results found!")
@@ -62,5 +62,5 @@ jobs:
                   reported = data["results"][result]["checks"][rule]["matches"][test]["reported_lines"]
                   for n in reported:
                     if not n in expected:
-                      print("  "+test+" (L:"+str(n)+")")
+                      print("  -> "+test+" (L:"+str(n)+")")
             
