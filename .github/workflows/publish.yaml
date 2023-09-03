@@ -50,4 +50,17 @@ jobs:
             for test in data["config_missing_tests"]:
               print(test)
             sys.exit(1)
+          if len(data["results"]) == 0:
+            print("Error: No test results found!")
+            sys.exit(1);
+          for result in data["results"].keys():
+            for rule in data["results"][result]["checks"].keys():
+              if data["results"][result]["checks"][rule]["passed"] == False:
+                print("Error: Rule "+rule+" failed")
+                for test in data["results"][result]["checks"][rule]["matches"].keys():
+                  expected = data["results"][result]["checks"][rule]["matches"][test]["expected_lines"]
+                  reported = data["results"][result]["checks"][rule]["matches"][test]["reported_lines"]
+                  for n in reported:
+                    if not n in expected:
+                      print("  "+test+" (L:"+str(n)+")")
             
