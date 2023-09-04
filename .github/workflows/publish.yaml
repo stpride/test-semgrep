@@ -34,7 +34,7 @@ jobs:
         run: |
           docker run \
             -v .:/src \
-            returntocorp/semgrep \
+            returntocorp/semgrep:latest \
             semgrep scan --test --error --time --json --quiet --config /src/rules /src/tests > output.json || true
         
       - name: Validate Test Suite
@@ -58,13 +58,15 @@ jobs:
             for rule in data["results"][result]["checks"].keys():
               if data["results"][result]["checks"][rule]["passed"] == False:
                 print("Error: Rule "+rule+" failed")
+                passed = False
                 for test in data["results"][result]["checks"][rule]["matches"].keys():
                   expected = data["results"][result]["checks"][rule]["matches"][test]["expected_lines"]
                   reported = data["results"][result]["checks"][rule]["matches"][test]["reported_lines"]
                   for n in reported:
                     if not n in expected:
                       print("  -> "+test+" (L:"+str(n)+")")
-                      passed = False
-          if passed == False:
+          if passed:
+            print("OK: No issues found")
+          else:
             sys.exit(1)
             
